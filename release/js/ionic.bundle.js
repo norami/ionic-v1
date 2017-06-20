@@ -9,7 +9,7 @@
  * Copyright 2015 Drifty Co.
  * http://drifty.com/
  *
- * Ionic, v1.3.3
+ * Ionic, v1.3.3-norami20170620
  * A powerful HTML5 mobile app framework.
  * http://ionicframework.com/
  *
@@ -25,7 +25,7 @@
 // build processes may have already created an ionic obj
 window.ionic = window.ionic || {};
 window.ionic.views = {};
-window.ionic.version = '1.3.3';
+window.ionic.version = '1.3.3-norami20170620';
 
 (function (ionic) {
 
@@ -361,7 +361,7 @@ window.ionic.version = '1.3.3';
      * className, or null.
      */
     getParentWithClass: function(e, className, depth) {
-      depth = depth || 10;
+      depth = depth || 20;
       while (e.parentNode && depth--) {
         if (e.parentNode.classList && e.parentNode.classList.contains(className)) {
           return e.parentNode;
@@ -379,7 +379,7 @@ window.ionic.version = '1.3.3';
      * className, or null.
      */
     getParentOrSelfWithClass: function(e, className, depth) {
-      depth = depth || 10;
+      depth = depth || 20;
       while (e && depth--) {
         if (e.classList && e.classList.contains(className)) {
           return e;
@@ -4811,7 +4811,7 @@ ionic.views.Scroll = ionic.views.View.inherit({
       startY: 0,
 
       /** The amount to dampen mousewheel events */
-      wheelDampen: 6,
+      wheelDampen: 1,
 
       /** The minimum size the scrollbars scale to while scrolling */
       minScrollbarSizeX: 5,
@@ -5391,7 +5391,6 @@ ionic.views.Scroll = ionic.views.View.inherit({
       document.addEventListener("touchmove", self.touchMove, false);
       document.addEventListener("touchend", self.touchEnd, false);
       document.addEventListener("touchcancel", self.touchEnd, false);
-      document.addEventListener("wheel", self.mouseWheel, false);
 
     } else if (window.navigator.pointerEnabled) {
       // Pointer Events
@@ -5400,7 +5399,6 @@ ionic.views.Scroll = ionic.views.View.inherit({
       document.addEventListener("pointermove", self.touchMove, false);
       document.addEventListener("pointerup", self.touchEnd, false);
       document.addEventListener("pointercancel", self.touchEnd, false);
-      document.addEventListener("wheel", self.mouseWheel, false);
 
     } else if (window.navigator.msPointerEnabled) {
       // IE10, WP8 (Pointer Events)
@@ -5409,57 +5407,55 @@ ionic.views.Scroll = ionic.views.View.inherit({
       document.addEventListener("MSPointerMove", self.touchMove, false);
       document.addEventListener("MSPointerUp", self.touchEnd, false);
       document.addEventListener("MSPointerCancel", self.touchEnd, false);
-      document.addEventListener("wheel", self.mouseWheel, false);
 
-    } else {
-      // Mouse Events
-      var mousedown = false;
+    } 
+    // Mouse Events
+    var mousedown = false;
 
-      self.mouseDown = function(e) {
-        if ( ionic.tap.ignoreScrollStart(e) || e.target.tagName === 'SELECT' ) {
-          return;
-        }
-        self.doTouchStart(getEventTouches(e), e.timeStamp);
+    self.mouseDown = function(e) {
+      if ( ionic.tap.ignoreScrollStart(e) || e.target.tagName === 'SELECT' ) {
+        return;
+      }
+      self.doTouchStart(getEventTouches(e), e.timeStamp);
 
-        if ( !ionic.tap.isTextInput(e.target) ) {
-          e.preventDefault();
-        }
-        mousedown = true;
-      };
+      if ( !ionic.tap.isTextInput(e.target) ) {
+        e.preventDefault();
+      }
+      mousedown = true;
+    };
 
-      self.mouseMove = function(e) {
-        if (self.options.freeze || !mousedown || (!mousedown && e.defaultPrevented)) {
-          return;
-        }
+    self.mouseMove = function(e) {
+      if (self.options.freeze || !mousedown || (!mousedown && e.defaultPrevented)) {
+        return;
+      }
 
-        self.doTouchMove(getEventTouches(e), e.timeStamp);
+      self.doTouchMove(getEventTouches(e), e.timeStamp);
 
-        mousedown = true;
-      };
+      mousedown = true;
+    };
 
-      self.mouseMoveBubble = function(e) {
-        if (mousedown && self.options.preventDefault) {
-          e.preventDefault();
-        }
-      };
+    self.mouseMoveBubble = function(e) {
+      if (mousedown && self.options.preventDefault) {
+        e.preventDefault();
+      }
+    };
 
-      self.mouseUp = function(e) {
-        if (!mousedown) {
-          return;
-        }
+    self.mouseUp = function(e) {
+      if (!mousedown) {
+        return;
+      }
 
-        self.doTouchEnd(e, e.timeStamp);
+      self.doTouchEnd(e, e.timeStamp);
 
-        mousedown = false;
-      };
+      mousedown = false;
+    };
 
-      container.addEventListener("mousedown", self.mouseDown, false);
-      if(self.options.preventDefault) container.addEventListener("mousemove", self.mouseMoveBubble, false);
-      document.addEventListener("mousemove", self.mouseMove, false);
-      document.addEventListener("mouseup", self.mouseUp, false);
-      document.addEventListener('mousewheel', self.mouseWheel, false);
-      document.addEventListener('wheel', self.mouseWheel, false);
-    }
+    container.addEventListener("mousedown", self.mouseDown, false);
+    if(self.options.preventDefault) container.addEventListener("mousemove", self.mouseMoveBubble, false);
+    document.addEventListener("mousemove", self.mouseMove, false);
+    document.addEventListener("mouseup", self.mouseUp, false);
+    document.addEventListener('mousewheel', self.mouseWheel, false);
+    document.addEventListener('wheel', self.mouseWheel, false);
   },
 
   __cleanup: function() {
@@ -53185,7 +53181,7 @@ angular.module('ui.router.state')
  * Copyright 2015 Drifty Co.
  * http://drifty.com/
  *
- * Ionic, v1.3.3
+ * Ionic, v1.3.3-norami20170620
  * A powerful HTML5 mobile app framework.
  * http://ionicframework.com/
  *
