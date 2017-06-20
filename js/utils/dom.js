@@ -229,7 +229,7 @@
      * className, or null.
      */
     getParentWithClass: function(e, className, depth) {
-      depth = depth || 10;
+      depth = depth || 20;
       while (e.parentNode && depth--) {
         if (e.parentNode.classList && e.parentNode.classList.contains(className)) {
           return e.parentNode;
@@ -247,7 +247,7 @@
      * className, or null.
      */
     getParentOrSelfWithClass: function(e, className, depth) {
-      depth = depth || 10;
+      depth = depth || 20;
       while (e && depth--) {
         if (e.classList && e.classList.contains(className)) {
           return e;

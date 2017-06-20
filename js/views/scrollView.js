@@ -308,7 +308,7 @@ ionic.views.Scroll = ionic.views.View.inherit({
       startY: 0,
 
       /** The amount to dampen mousewheel events */
-      wheelDampen: 6,
+      wheelDampen: 1,
 
       /** The minimum size the scrollbars scale to while scrolling */
       minScrollbarSizeX: 5,
